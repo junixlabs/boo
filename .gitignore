@@ -1,0 +1,46 @@
+# Dependencies
+api/vendor/
+web/node_modules/
+
+# Build output
+web/dist/
+
+# Environment files
+api/.env
+web/.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Laravel
+api/storage/*.key
+api/storage/framework/cache/data/*
+api/storage/framework/sessions/*
+api/storage/framework/views/*
+api/bootstrap/cache/*
+!api/bootstrap/cache/.gitkeep
+!api/storage/framework/cache/.gitkeep
+!api/storage/framework/sessions/.gitkeep
+!api/storage/framework/views/.gitkeep
+
+# Logs
+api/storage/logs/*
+!api/storage/logs/.gitkeep
+*.log
+
+# Playwright
+.playwright-mcp/
+
+# Screenshots / design review assets (local only)
+*.png
+
+# Claude internal
+.claude/design-review/
+.claude/plans/

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A855F7"/>
+      <stop offset="100%" style="stop-color:#F472B6"/>
+    </linearGradient>
+  </defs>
+  <!-- Body -->
+  <path d="M128 20 C70 20 30 70 30 120 C30 170 40 200 50 220 Q60 240 70 235 Q80 230 85 240 Q95 255 105 240 Q115 225 128 240 Q141 225 151 240 Q161 255 171 240 Q176 230 186 235 Q196 240 206 220 C216 200 226 170 226 120 C226 70 186 20 128 20Z" fill="url(#bodyGrad)" opacity="0.95"/>
+  <!-- Face white area -->
+  <ellipse cx="128" cy="110" rx="55" ry="45" fill="white" opacity="0.15"/>
+  <!-- Dramatic wide eyes -->
+  <ellipse cx="105" cy="100" rx="16" ry="18" fill="#1a1a24"/>
+  <ellipse cx="151" cy="100" rx="16" ry="18" fill="#1a1a24"/>
+  <!-- Eye highlights (big) -->
+  <circle cx="99" cy="94" r="6" fill="white" opacity="0.9"/>
+  <circle cx="145" cy="94" r="6" fill="white" opacity="0.9"/>
+  <circle cx="108" cy="102" r="3" fill="white" opacity="0.5"/>
+  <circle cx="154" cy="102" r="3" fill="white" opacity="0.5"/>
+  <!-- Dramatic open mouth -->
+  <ellipse cx="128" cy="142" rx="15" ry="12" fill="#1a1a24"/>
+  <!-- Sweat drop -->
+  <path d="M170 78 Q173 68 176 78 Q173 85 170 78Z" fill="#22D3EE" opacity="0.6"/>
+  <!-- Blush -->
+  <ellipse cx="82" cy="120" rx="13" ry="8" fill="#F472B6" opacity="0.4"/>
+  <ellipse cx="174" cy="120" rx="13" ry="8" fill="#F472B6" opacity="0.4"/>
+  <!-- Dramatic lines -->
+  <line x1="55" y1="50" x2="65" y2="60" stroke="#FBBF24" stroke-width="2" opacity="0.6"/>
+  <line x1="48" y1="65" x2="60" y2="70" stroke="#FBBF24" stroke-width="2" opacity="0.6"/>
+  <line x1="196" y1="50" x2="186" y2="60" stroke="#FBBF24" stroke-width="2" opacity="0.6"/>
+  <line x1="203" y1="65" x2="191" y2="70" stroke="#FBBF24" stroke-width="2" opacity="0.6"/>
+</svg>

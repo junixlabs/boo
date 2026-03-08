@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A855F7"/>
+      <stop offset="100%" style="stop-color:#F43F5E"/>
+    </linearGradient>
+  </defs>
+  <!-- Body (red tinted) -->
+  <path d="M128 20 C70 20 30 70 30 120 C30 170 40 200 50 220 Q60 240 70 235 Q80 230 85 240 Q95 255 105 240 Q115 225 128 240 Q141 225 151 240 Q161 255 171 240 Q176 230 186 235 Q196 240 206 220 C216 200 226 170 226 120 C226 70 186 20 128 20Z" fill="url(#bodyGrad)" opacity="0.95"/>
+  <!-- Face white area -->
+  <ellipse cx="128" cy="110" rx="55" ry="45" fill="white" opacity="0.15"/>
+  <!-- Angry eyebrows -->
+  <line x1="88" y1="82" x2="115" y2="90" stroke="#1a1a24" stroke-width="4" stroke-linecap="round"/>
+  <line x1="168" y1="82" x2="141" y2="90" stroke="#1a1a24" stroke-width="4" stroke-linecap="round"/>
+  <!-- Eyes -->
+  <ellipse cx="105" cy="105" rx="11" ry="12" fill="#1a1a24"/>
+  <ellipse cx="151" cy="105" rx="11" ry="12" fill="#1a1a24"/>
+  <!-- Eye highlights -->
+  <circle cx="101" cy="101" r="3" fill="white" opacity="0.8"/>
+  <circle cx="147" cy="101" r="3" fill="white" opacity="0.8"/>
+  <!-- Angry mouth -->
+  <path d="M110 140 L128 148 L146 140" stroke="#1a1a24" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Blush (reddish) -->
+  <ellipse cx="85" cy="122" rx="12" ry="7" fill="#F43F5E" opacity="0.4"/>
+  <ellipse cx="171" cy="122" rx="12" ry="7" fill="#F43F5E" opacity="0.4"/>
+</svg>

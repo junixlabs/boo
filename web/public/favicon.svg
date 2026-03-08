@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7C3AED"/>
+      <stop offset="100%" style="stop-color:#A855F7"/>
+    </linearGradient>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E9D5FF"/>
+      <stop offset="100%" style="stop-color:#F5D0FE"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect width="256" height="256" rx="56" fill="url(#bg)"/>
+  <!-- Ghost body -->
+  <path d="M128 32 C78 32 42 74 42 118 C42 162 50 190 58 208 Q66 224 74 220 Q82 216 86 224 Q94 238 104 224 Q112 212 128 224 Q144 212 152 224 Q162 238 170 224 Q174 216 182 220 Q190 224 198 208 C206 190 214 162 214 118 C214 74 178 32 128 32Z" fill="url(#bodyGrad)" opacity="0.95"/>
+  <!-- Eyes -->
+  <ellipse cx="108" cy="108" rx="11" ry="13" fill="#1E1033"/>
+  <ellipse cx="148" cy="108" rx="11" ry="13" fill="#1E1033"/>
+  <!-- Eye highlights -->
+  <circle cx="104" cy="103" r="4" fill="white" opacity="0.85"/>
+  <circle cx="144" cy="103" r="4" fill="white" opacity="0.85"/>
+  <!-- Mouth -->
+  <ellipse cx="128" cy="138" rx="7" ry="5" fill="#1E1033"/>
+  <!-- Blush -->
+  <ellipse cx="90" cy="124" rx="10" ry="6" fill="#C084FC" opacity="0.5"/>
+  <ellipse cx="166" cy="124" rx="10" ry="6" fill="#C084FC" opacity="0.5"/>
+</svg>
