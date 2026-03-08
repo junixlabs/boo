@@ -21,11 +21,11 @@ services:
       context: ./api
       dockerfile: Dockerfile
     restart: unless-stopped
-    env_file: ./api/.env
     depends_on:
       db:
         condition: service_healthy
     volumes:
+      - ./api/.env:/var/www/.env
       - api_storage:/var/www/storage
 
   # Nginx for API
