@@ -2,6 +2,7 @@ import { useEffect, useCallback } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { aiApi } from '../api/ai.api'
 import { useChatStore } from '../store/chat.store'
+import type { BooExpression } from '../types'
 
 export const chatKeys = {
   history: ['chat', 'history'] as const,
@@ -25,9 +26,10 @@ export function useSendMessage() {
     aiApi.chatHistory().then((r) => {
       const data = r.data.data
       if (data?.messages?.length) {
-        const msgs = data.messages.map((m: { role: string; content: string }) => ({
+        const msgs = data.messages.map((m: { role: string; content: string; created_at?: string }) => ({
           role: m.role as 'user' | 'assistant',
           content: m.content,
+          timestamp: m.created_at,
         }))
         store.loadHistory(msgs, data.conversation_id)
       } else {
@@ -53,12 +55,16 @@ export function useSendMessage() {
           accumulated += delta
           useChatStore.getState().setStreamingContent(accumulated)
         },
-        (convId) => {
+        (convId, expression?: BooExpression) => {
           useChatStore.getState().setConversationId(convId)
-          useChatStore.getState().addAssistantMessage(accumulated)
+          useChatStore.getState().addAssistantMessage(accumulated, expression)
           useChatStore.getState().setStreamingContent('')
           useChatStore.getState().setStreaming(false)
           qc.invalidateQueries({ queryKey: chatKeys.history })
+          // Invalidate data caches since chat may have changed tasks/focus
+          qc.invalidateQueries({ queryKey: ['dashboard'] })
+          qc.invalidateQueries({ queryKey: ['daily-focus'] })
+          qc.invalidateQueries({ queryKey: ['tasks'] })
         },
       )
     } catch {

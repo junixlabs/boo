@@ -193,6 +193,58 @@ export default function SettingsPage() {
 
       <Card>
         <CardHeader>
+          <CardTitle>Boo Behavior</CardTitle>
+          <CardDescription>Adjust how Boo interacts with you</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <Label htmlFor="gentle-mode">Gentle Mode</Label>
+              <p className="text-xs text-muted-foreground">Boo will be softer — no guilt-trip or dramatic messages</p>
+            </div>
+            <Switch
+              id="gentle-mode"
+              checked={settings?.gentle_mode ?? false}
+              onCheckedChange={(checked) => updateSettings.mutate({ gentle_mode: checked })}
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <div>
+              <Label htmlFor="weekend-mode">Weekend Mode</Label>
+              <p className="text-xs text-muted-foreground">Only show important nudges on weekends</p>
+            </div>
+            <Switch
+              id="weekend-mode"
+              checked={settings?.weekend_mode ?? true}
+              onCheckedChange={(checked) => updateSettings.mutate({ weekend_mode: checked })}
+            />
+          </div>
+          <div className="space-y-3">
+            <Label>Quiet Hours</Label>
+            <p className="text-xs text-muted-foreground">No push notifications during these hours</p>
+            <div className="flex items-center gap-3">
+              <input
+                type="time"
+                className="rounded-md border bg-background px-2 py-1 text-sm"
+                defaultValue={settings?.quiet_hours_start ?? '22:00'}
+                key={`qh-start-${settings?.quiet_hours_start}`}
+                onBlur={(e) => updateSettings.mutate({ quiet_hours_start: e.target.value })}
+              />
+              <span className="text-sm text-muted-foreground">to</span>
+              <input
+                type="time"
+                className="rounded-md border bg-background px-2 py-1 text-sm"
+                defaultValue={settings?.quiet_hours_end ?? '08:00'}
+                key={`qh-end-${settings?.quiet_hours_end}`}
+                onBlur={(e) => updateSettings.mutate({ quiet_hours_end: e.target.value })}
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
           <CardTitle>Account</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">

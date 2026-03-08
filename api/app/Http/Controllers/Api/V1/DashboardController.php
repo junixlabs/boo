@@ -46,6 +46,7 @@ class DashboardController extends Controller
             'recent_notes' => ProjectNoteResource::collection($data['recent_notes']),
             'ideas_inbox_count' => $data['ideas_inbox_count'],
             'overdue_tasks_count' => $data['overdue_tasks_count'],
+            'streak' => $data['streak'],
         ]);
     }
 }

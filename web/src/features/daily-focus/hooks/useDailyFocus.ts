@@ -5,12 +5,21 @@ import type { DailyFocusPayload, ReorderPayload } from '../types'
 export const focusKeys = {
   all: ['daily-focus'] as const,
   list: (date?: string) => ['daily-focus', 'list', date] as const,
+  suggestions: ['daily-focus', 'suggestions'] as const,
 }
 
 export function useDailyFocus(date?: string) {
   return useQuery({
     queryKey: focusKeys.list(date),
     queryFn: () => dailyFocusApi.list(date).then((r) => r.data.data),
+  })
+}
+
+export function useFocusSuggestions() {
+  return useQuery({
+    queryKey: focusKeys.suggestions,
+    queryFn: () => dailyFocusApi.suggestions().then((r) => r.data.data),
+    staleTime: 5 * 60 * 1000,
   })
 }
 

@@ -51,6 +51,7 @@ Route::prefix('v1')->group(function () {
 
         // Daily Focus
         Route::get('daily-focus', [DailyFocusController::class, 'index']);
+        Route::get('daily-focus/suggestions', [DailyFocusController::class, 'suggestions']);
         Route::post('daily-focus', [DailyFocusController::class, 'store']);
         Route::put('daily-focus/{dailyFocus}', [DailyFocusController::class, 'update']);
         Route::delete('daily-focus/{dailyFocus}', [DailyFocusController::class, 'destroy']);
@@ -120,6 +121,7 @@ Route::prefix('v1')->group(function () {
         // AI (no throttle - DB only)
         Route::get('ai/chat/history', [AiController::class, 'chatHistory']);
         Route::delete('ai/chat/{conversationId}', [AiController::class, 'clearChat']);
+        Route::get('ai/daily-briefing', [AiController::class, 'dailyBriefing']);
 
         // Nudges
         Route::get('ai/nudges', [NudgeController::class, 'index']);

@@ -24,3 +24,16 @@ export interface ReorderPayload {
   focus_date: string
   order: number[]
 }
+
+export interface FocusSuggestion {
+  task: {
+    id: number
+    title: string
+    status: string
+    priority: string
+    due_date: string | null
+    project: { id: number; title: string } | null
+  }
+  score: number
+  reasons: string[]
+}

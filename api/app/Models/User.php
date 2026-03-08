@@ -17,6 +17,7 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'timezone',
+        'onboarding_step',
         'preferred_language',
     ];
 
@@ -30,6 +31,7 @@ class User extends Authenticatable implements JWTSubject
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'onboarding_step' => 'integer',
         ];
     }
 

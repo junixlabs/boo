@@ -25,11 +25,31 @@ export type NudgeType =
   | 'overdue_tasks'
   | 'stale_project'
   | 'no_weekly_plan'
-  | 'incomplete_reflection'
-  | 'idle_ideas'
-  | 'no_learning_progress'
-  | 'missed_milestone'
-  | 'goal_check_in'
+  | 'incomplete_focus'
+  | 'no_weekly_reflection'
+  | 'no_monthly_reflection'
+  | 'goal_deadline'
+  | 'ideas_aging'
+  | 'task_due_soon'
+  | 'task_stuck'
+  | 'wip_overload'
+  | 'no_daily_activity'
+  | 'plan_tomorrow'
+  | 'focus_streak'
+  | 'daily_win'
+  | 'welcome_back'
+  | 'overwork_warning'
+  | 'epic_meaning'
+  | 'milestone_progress'
+  | 'outcome_check'
+  | 'reflection_followup'
+  | 'overcommitment'
+  | 'rest_in_peace'
+  | 'achievement_first_task'
+  | 'achievement_early_bird'
+  | 'achievement_streak_record'
+  | 'achievement_project_closer'
+  | 'achievement_reflection_master'
   | 'pattern_insight'
   | 'priority_conflict'
 
@@ -49,7 +69,17 @@ export interface Nudge {
 export interface ChatMessage {
   role: 'user' | 'assistant'
   content: string
+  boo_expression?: BooExpression
   timestamp?: string
+}
+
+export interface DailyBriefing {
+  date: string
+  overdue_tasks: number
+  focus_total: number
+  focus_done: number
+  streak: number
+  ideas_count: number
 }
 
 export interface ChatRequest {
@@ -84,6 +114,13 @@ export interface SkillProgress {
   learning_tasks_completed: number
 }
 
+export interface StreakData {
+  current_streak: number
+  longest_streak: number
+  today_focus_total: number
+  today_focus_done: number
+}
+
 export interface DashboardOverview {
   today_focus: unknown[]
   active_projects: unknown[]
@@ -93,6 +130,7 @@ export interface DashboardOverview {
   recent_notes: unknown[]
   ideas_inbox_count: number
   overdue_tasks_count: number
+  streak: StreakData
 }
 
 // Git types

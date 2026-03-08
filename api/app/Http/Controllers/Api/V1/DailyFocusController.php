@@ -54,6 +54,13 @@ class DailyFocusController extends Controller
         return $this->noContent();
     }
 
+    public function suggestions(Request $request): JsonResponse
+    {
+        $suggestions = $this->dailyFocusService->suggestFocusTasks($request->user());
+
+        return $this->success($suggestions);
+    }
+
     public function reorder(ReorderDailyFocusRequest $request): JsonResponse
     {
         $validated = $request->validated();

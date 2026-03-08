@@ -7,6 +7,7 @@ use Carbon\Carbon;
 
 class DashboardService
 {
+    public function __construct(private StreakService $streakService) {}
     public function today(User $user): array
     {
         $today = Carbon::now($user->timezone)->toDateString();
@@ -127,6 +128,8 @@ class DashboardService
             ->where('due_date', '<', $today)
             ->count();
 
+        $todayProgress = $this->streakService->getTodayProgress($user);
+
         return [
             'today_focus' => $todayFocuses,
             'active_projects' => $activeProjects,
@@ -139,6 +142,12 @@ class DashboardService
             'recent_notes' => $recentNotes,
             'ideas_inbox_count' => $ideasInboxCount,
             'overdue_tasks_count' => $overdueTasksCount,
+            'streak' => [
+                'current_streak' => $this->streakService->calculateCurrentStreak($user),
+                'longest_streak' => $this->streakService->calculateLongestStreak($user),
+                'today_focus_total' => $todayProgress['total'],
+                'today_focus_done' => $todayProgress['done'],
+            ],
         ];
     }
 }

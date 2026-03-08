@@ -17,6 +17,10 @@ class UpdateNotificationSettingRequest extends FormRequest
             'push_enabled' => ['sometimes', 'boolean'],
             'morning_time' => ['sometimes', 'date_format:H:i'],
             'evening_time' => ['sometimes', 'date_format:H:i'],
+            'gentle_mode' => ['sometimes', 'boolean'],
+            'quiet_hours_start' => ['sometimes', 'date_format:H:i'],
+            'quiet_hours_end' => ['sometimes', 'date_format:H:i'],
+            'weekend_mode' => ['sometimes', 'boolean'],
         ];
     }
 }

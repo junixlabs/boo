@@ -8,6 +8,8 @@ import type {
   AiResult,
   Nudge,
   ConversationHistory,
+  DailyBriefing,
+  BooExpression,
 } from '../types'
 
 export const aiApi = {
@@ -34,12 +36,16 @@ export const aiApi = {
   clearChat: (conversationId: string) =>
     api.delete(`/ai/chat/${conversationId}`),
 
+  // Daily briefing
+  dailyBriefing: () =>
+    api.get<ApiResponse<DailyBriefing>>('/ai/daily-briefing'),
+
   // SSE streaming chat - uses fetch instead of axios
   chat: async (
     message: string,
     conversationId: string | null,
     onDelta: (text: string) => void,
-    onDone: (convId: string) => void,
+    onDone: (convId: string, expression?: BooExpression) => void,
   ) => {
     const token = useAuthStore.getState().token
     const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/v1/ai/chat`, {
@@ -82,7 +88,7 @@ export const aiApi = {
           if (event.type === 'text_delta') {
             onDelta(event.delta)
           } else if (event.type === 'done') {
-            onDone(event.conversation_id)
+            onDone(event.conversation_id, event.boo_expression)
           }
         } catch {
           // skip malformed JSON

@@ -6,6 +6,10 @@ interface NotificationSettings {
   push_enabled: boolean
   morning_time: string
   evening_time: string
+  gentle_mode: boolean
+  quiet_hours_start: string | null
+  quiet_hours_end: string | null
+  weekend_mode: boolean
 }
 
 export const pushApi = {
@@ -21,6 +25,6 @@ export const pushApi = {
   getSettings: () =>
     api.get<ApiResponse<NotificationSettings>>('/notification-settings'),
 
-  updateSettings: (data: Partial<Pick<NotificationSettings, 'push_enabled' | 'morning_time' | 'evening_time'>>) =>
+  updateSettings: (data: Partial<Omit<NotificationSettings, 'id'>>) =>
     api.put<ApiResponse<NotificationSettings>>('/notification-settings', data),
 }

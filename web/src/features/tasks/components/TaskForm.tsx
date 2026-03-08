@@ -17,6 +17,7 @@ interface TaskFormProps {
 export function TaskForm({ initial, defaultProjectId, onSubmit, isPending }: TaskFormProps) {
   const [title, setTitle] = useState(initial?.title ?? '')
   const [description, setDescription] = useState(initial?.description ?? '')
+  const [expectedOutcome, setExpectedOutcome] = useState(initial?.expected_outcome ?? '')
   const [projectId, setProjectId] = useState(String(initial?.project_id ?? defaultProjectId ?? ''))
   const [priority, setPriority] = useState<TaskPriority>(initial?.priority ?? 'medium')
   const [dueDate, setDueDate] = useState(initial?.due_date ?? '')
@@ -29,6 +30,7 @@ export function TaskForm({ initial, defaultProjectId, onSubmit, isPending }: Tas
     onSubmit({
       title,
       description: description || null,
+      expected_outcome: expectedOutcome || null,
       project_id: projectId ? Number(projectId) : null,
       priority,
       due_date: dueDate || null,
@@ -44,6 +46,10 @@ export function TaskForm({ initial, defaultProjectId, onSubmit, isPending }: Tas
       <div className="space-y-2">
         <Label htmlFor="description">Description</Label>
         <Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} rows={2} />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="expected_outcome">Expected Outcome</Label>
+        <Input id="expected_outcome" value={expectedOutcome} onChange={(e) => setExpectedOutcome(e.target.value)} placeholder="What does done look like?" />
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">

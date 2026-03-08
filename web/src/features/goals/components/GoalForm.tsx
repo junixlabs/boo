@@ -17,6 +17,7 @@ export function GoalForm({ initial, onSubmit, isPending }: GoalFormProps) {
   const [description, setDescription] = useState(initial?.description ?? '')
   const [timeframe, setTimeframe] = useState<GoalTimeframe>(initial?.timeframe ?? 'quarterly')
   const [status, setStatus] = useState<GoalStatus>(initial?.status ?? 'active')
+  const [progress, setProgress] = useState(initial?.progress ?? 0)
   const [targetDate, setTargetDate] = useState(initial?.target_date ?? '')
 
   function handleSubmit(e: React.FormEvent) {
@@ -26,6 +27,7 @@ export function GoalForm({ initial, onSubmit, isPending }: GoalFormProps) {
       description: description || null,
       timeframe,
       status,
+      progress,
       target_date: targetDate || null,
     })
   }
@@ -62,6 +64,10 @@ export function GoalForm({ initial, onSubmit, isPending }: GoalFormProps) {
             </SelectContent>
           </Select>
         </div>
+      </div>
+      <div className="space-y-2">
+        <Label>Progress ({progress}%)</Label>
+        <input type="range" min="0" max="100" value={progress} onChange={(e) => setProgress(Number(e.target.value))} className="w-full accent-primary" />
       </div>
       <div className="space-y-2">
         <Label htmlFor="target_date">Target Date</Label>

@@ -1,6 +1,6 @@
 import api from '@/lib/axios'
 import type { ApiResponse } from '@/types/api'
-import type { DailyFocus, DailyFocusPayload, ReorderPayload } from '../types'
+import type { DailyFocus, DailyFocusPayload, FocusSuggestion, ReorderPayload } from '../types'
 
 export const dailyFocusApi = {
   list: (date?: string) =>
@@ -14,6 +14,9 @@ export const dailyFocusApi = {
 
   delete: (id: number) =>
     api.delete(`/daily-focus/${id}`),
+
+  suggestions: () =>
+    api.get<ApiResponse<FocusSuggestion[]>>('/daily-focus/suggestions'),
 
   reorder: (data: ReorderPayload) =>
     api.post<ApiResponse<DailyFocus[]>>('/daily-focus/reorder', data),

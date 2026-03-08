@@ -29,6 +29,14 @@ export function GoalCard({ goal, onEdit, onDelete }: GoalCardProps) {
           </Badge>
         </div>
         {goal.description && <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{goal.description}</p>}
+        {goal.status === 'active' && (
+          <div className="mt-2 flex items-center gap-2">
+            <div className="h-1.5 flex-1 rounded-full bg-secondary">
+              <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${goal.progress}%` }} />
+            </div>
+            <span className="text-xs text-muted-foreground">{goal.progress}%</span>
+          </div>
+        )}
         {goal.target_date && <p className="mt-1 text-xs text-muted-foreground">Target: {goal.target_date}</p>}
       </div>
       <div className="flex gap-1">

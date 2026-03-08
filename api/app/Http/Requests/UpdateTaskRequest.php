@@ -24,6 +24,7 @@ class UpdateTaskRequest extends FormRequest
             'status' => ['sometimes', Rule::enum(TaskStatus::class)],
             'priority' => ['sometimes', Rule::enum(TaskPriority::class)],
             'due_date' => ['nullable', 'date'],
+            'expected_outcome' => ['nullable', 'string', 'max:500'],
             'sort_order' => ['sometimes', 'integer'],
         ];
     }

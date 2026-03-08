@@ -15,6 +15,7 @@ class GoalResource extends JsonResource
             'description' => $this->description,
             'timeframe' => $this->timeframe->value,
             'status' => $this->status->value,
+            'progress' => $this->progress,
             'target_date' => $this->target_date?->toDateString(),
             'sort_order' => $this->sort_order,
             'created_at' => $this->created_at->toIso8601String(),

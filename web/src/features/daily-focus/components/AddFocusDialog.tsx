@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { Sparkles } from 'lucide-react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useTasks } from '@/features/tasks/hooks/useTasks'
+import { useFocusSuggestions } from '../hooks/useDailyFocus'
 import type { DailyFocusPayload } from '../types'
 
 interface AddFocusDialogProps {
@@ -20,6 +22,7 @@ export function AddFocusDialog({ open, onOpenChange, onAdd, currentCount, focusD
   const [note, setNote] = useState('')
   const { data: tasksData } = useTasks({ status: 'todo,in_progress', per_page: 50 })
   const tasks = tasksData?.data ?? []
+  const { data: suggestions } = useFocusSuggestions()
 
   function handleAdd() {
     if (!selectedTaskId) return
@@ -33,6 +36,8 @@ export function AddFocusDialog({ open, onOpenChange, onAdd, currentCount, focusD
     setNote('')
   }
 
+  const suggestedIds = (suggestions ?? []).map((s) => s.task.id)
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
@@ -40,8 +45,26 @@ export function AddFocusDialog({ open, onOpenChange, onAdd, currentCount, focusD
           <DialogTitle>Add Focus ({currentCount}/3)</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
-          <div className="max-h-60 space-y-1 overflow-y-auto">
-            {tasks.map((t) => (
+          {suggestions && suggestions.length > 0 && (
+            <div className="space-y-1.5">
+              <p className="flex items-center gap-1.5 text-xs font-medium text-primary">
+                <Sparkles className="h-3 w-3" /> Boo suggests
+              </p>
+              {suggestions.slice(0, 3).map((s) => (
+                <button
+                  key={s.task.id}
+                  type="button"
+                  onClick={() => setSelectedTaskId(s.task.id)}
+                  className={`w-full rounded-md border border-primary/20 bg-primary/5 p-2 text-left text-sm transition-colors ${selectedTaskId === s.task.id ? 'border-primary bg-primary/10' : 'hover:bg-primary/10'}`}
+                >
+                  <p className="font-medium">{s.task.title}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">{s.reasons.join(' · ')}</p>
+                </button>
+              ))}
+            </div>
+          )}
+          <div className="max-h-48 space-y-1 overflow-y-auto">
+            {tasks.filter((t) => !suggestedIds.includes(t.id)).map((t) => (
               <button
                 key={t.id}
                 type="button"

@@ -61,8 +61,11 @@ class AiController extends Controller
         $stream = $agent->stream($prepared['message']);
 
         return response()->stream(function () use ($stream, $agent) {
+            $fullText = '';
+
             foreach ($stream as $event) {
                 if ($event instanceof TextDelta) {
+                    $fullText .= $event->delta;
                     echo 'data: '.json_encode(['type' => 'text_delta', 'delta' => $event->delta])."\n\n";
 
                     if (ob_get_level() > 0) {
@@ -76,6 +79,7 @@ class AiController extends Controller
             echo 'data: '.json_encode([
                 'type' => 'done',
                 'conversation_id' => $agent->currentConversation(),
+                'boo_expression' => $this->detectExpression($fullText),
             ])."\n\n";
 
             if (ob_get_level() > 0) {
@@ -106,5 +110,59 @@ class AiController extends Controller
         $this->chatService->clearHistory($request->user(), $conversationId);
 
         return $this->noContent();
+    }
+
+    public function dailyBriefing(Request $request): JsonResponse
+    {
+        $briefing = $this->chatService->getDailyBriefing($request->user());
+
+        return $this->success($briefing);
+    }
+
+    private function detectExpression(string $text): string
+    {
+        $lower = mb_strtolower($text);
+
+        $happyWords = ['xong', 'tốt', 'giỏi', 'tuyệt', 'chúc mừng', 'hoàn thành', 'great', 'awesome', 'streak', 'yay', 'nice', '🎉', '🔥', '💪'];
+        $sadWords = ['chưa', 'quên', 'overdue', 'trễ', 'chậm', 'skip', 'miss', 'stuck', 'bỏ lỡ'];
+        $spookyWords = ['deadline', 'hạn chót', 'cảnh báo', 'warning', 'urgent', 'khẩn', 'gấp'];
+        $dramaticWords = ['haunt', 'ghost', 'boo sẽ', 'boo không', '*boo', 'khóc', 'buồn quá'];
+
+        foreach ($dramaticWords as $w) {
+            if (str_contains($lower, $w)) {
+                return 'dramatic';
+            }
+        }
+
+        foreach ($spookyWords as $w) {
+            if (str_contains($lower, $w)) {
+                return 'spooky';
+            }
+        }
+
+        $happyCount = 0;
+        $sadCount = 0;
+
+        foreach ($happyWords as $w) {
+            if (str_contains($lower, $w)) {
+                $happyCount++;
+            }
+        }
+
+        foreach ($sadWords as $w) {
+            if (str_contains($lower, $w)) {
+                $sadCount++;
+            }
+        }
+
+        if ($happyCount > $sadCount) {
+            return 'happy';
+        }
+
+        if ($sadCount > 0) {
+            return 'sad';
+        }
+
+        return 'default';
     }
 }

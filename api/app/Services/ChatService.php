@@ -91,6 +91,40 @@ class ChatService
             ->delete();
     }
 
+    public function getDailyBriefing(User $user): array
+    {
+        $now = Carbon::now($user->timezone ?? 'UTC');
+        $today = $now->toDateString();
+
+        $overdueTasks = $user->tasks()
+            ->where('due_date', '<', $today)
+            ->whereNotIn('status', ['done', 'cancelled'])
+            ->count();
+
+        $todayFocuses = $user->dailyFocuses()
+            ->where('focus_date', $today)
+            ->with('task:id,title,status')
+            ->get();
+
+        $focusTotal = $todayFocuses->count();
+        $focusDone = $todayFocuses->filter(fn ($f) => $f->task && $f->task->status->value === 'done')->count();
+
+        $streak = app(StreakService::class)->calculateCurrentStreak($user);
+
+        $ideasCount = $user->ideas()
+            ->where('status', 'new')
+            ->count();
+
+        return [
+            'date' => $today,
+            'overdue_tasks' => $overdueTasks,
+            'focus_total' => $focusTotal,
+            'focus_done' => $focusDone,
+            'streak' => $streak,
+            'ideas_count' => $ideasCount,
+        ];
+    }
+
     private function buildContext(User $user): string
     {
         $now = Carbon::now($user->timezone ?? 'UTC');

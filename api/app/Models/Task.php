@@ -17,6 +17,7 @@ class Task extends Model
         'milestone_id',
         'title',
         'description',
+        'expected_outcome',
         'status',
         'priority',
         'due_date',

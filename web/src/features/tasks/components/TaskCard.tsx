@@ -24,6 +24,12 @@ export function TaskCard({ task, onStatusChange, onClick }: TaskCardProps) {
         </p>
         <div className="mt-1 flex items-center gap-2">
           {task.project && <span className="text-xs text-muted-foreground">{task.project.title}</span>}
+          {task.milestone && (
+            <>
+              <span className="text-xs text-muted-foreground">&rsaquo;</span>
+              <span className="text-xs text-muted-foreground">{task.milestone.title}</span>
+            </>
+          )}
           {task.due_date && <span className="text-xs text-muted-foreground">{task.due_date}</span>}
         </div>
       </div>

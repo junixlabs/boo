@@ -17,6 +17,7 @@ class Goal extends Model
         'description',
         'timeframe',
         'status',
+        'progress',
         'target_date',
         'sort_order',
     ];
@@ -30,6 +31,7 @@ class Goal extends Model
         'timeframe' => GoalTimeframe::class,
         'status' => GoalStatus::class,
         'target_date' => 'date',
+        'progress' => 'integer',
     ];
 
     public function scopeFilterByTimeframe($query, ?string $timeframe)

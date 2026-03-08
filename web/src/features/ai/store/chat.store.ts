@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { ChatMessage } from '../types'
+import type { BooExpression, ChatMessage } from '../types'
 
 interface ChatState {
   messages: ChatMessage[]
@@ -9,7 +9,8 @@ interface ChatState {
   historyLoaded: boolean
 
   addUserMessage: (content: string) => void
-  addAssistantMessage: (content: string) => void
+  addAssistantMessage: (content: string, expression?: BooExpression) => void
+  addProactiveMessage: (content: string, expression?: BooExpression) => void
   setStreaming: (v: boolean) => void
   setStreamingContent: (v: string) => void
   setConversationId: (id: string | null) => void
@@ -25,10 +26,33 @@ export const useChatStore = create<ChatState>((set) => ({
   historyLoaded: false,
 
   addUserMessage: (content) =>
-    set((s) => ({ messages: [...s.messages, { role: 'user', content }] })),
+    set((s) => ({
+      messages: [...s.messages, {
+        role: 'user',
+        content,
+        timestamp: new Date().toISOString(),
+      }],
+    })),
 
-  addAssistantMessage: (content) =>
-    set((s) => ({ messages: [...s.messages, { role: 'assistant', content }] })),
+  addAssistantMessage: (content, expression) =>
+    set((s) => ({
+      messages: [...s.messages, {
+        role: 'assistant',
+        content,
+        boo_expression: expression ?? 'default',
+        timestamp: new Date().toISOString(),
+      }],
+    })),
+
+  addProactiveMessage: (content, expression) =>
+    set((s) => ({
+      messages: [{
+        role: 'assistant' as const,
+        content,
+        boo_expression: expression ?? 'default',
+        timestamp: new Date().toISOString(),
+      }, ...s.messages],
+    })),
 
   setStreaming: (v) => set({ isStreaming: v }),
 

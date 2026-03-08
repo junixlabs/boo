@@ -36,7 +36,7 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
   return (
     <div className={cn('flex gap-2', isUser ? 'flex-row-reverse' : 'flex-row')}>
       {!isUser && (
-        <BooAvatar size={28} expression="default" className="shrink-0 mt-1" />
+        <BooAvatar size={28} expression={message.boo_expression ?? 'default'} className="shrink-0 mt-1" />
       )}
       <div
         className={cn(

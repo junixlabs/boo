@@ -22,6 +22,7 @@ class StoreGoalRequest extends FormRequest
             'timeframe' => ['required', Rule::enum(GoalTimeframe::class)],
             'status' => ['sometimes', Rule::enum(GoalStatus::class)],
             'target_date' => ['nullable', 'date'],
+            'progress' => ['sometimes', 'integer', 'min:0', 'max:100'],
             'sort_order' => ['sometimes', 'integer'],
         ];
     }

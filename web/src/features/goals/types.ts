@@ -8,6 +8,7 @@ export interface Goal {
   timeframe: GoalTimeframe
   status: GoalStatus
   target_date: string | null
+  progress: number
   sort_order: number
   created_at: string
   updated_at: string
@@ -19,6 +20,7 @@ export interface GoalPayload {
   timeframe: GoalTimeframe
   status?: GoalStatus
   target_date?: string | null
+  progress?: number
   sort_order?: number
 }
 

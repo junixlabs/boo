@@ -14,6 +14,10 @@ class NotificationSettingResource extends JsonResource
             'push_enabled' => $this->push_enabled,
             'morning_time' => $this->morning_time,
             'evening_time' => $this->evening_time,
+            'gentle_mode' => $this->gentle_mode,
+            'quiet_hours_start' => $this->quiet_hours_start,
+            'quiet_hours_end' => $this->quiet_hours_end,
+            'weekend_mode' => $this->weekend_mode,
         ];
     }
 }

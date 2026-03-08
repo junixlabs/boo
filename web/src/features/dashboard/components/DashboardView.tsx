@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Target, FolderKanban, AlertTriangle, Lightbulb, CheckCircle2, Activity, GraduationCap } from 'lucide-react'
 import { ProjectHealthCard } from './ProjectHealthCard'
+import { StreakCard } from './StreakCard'
 import type { DashboardToday } from '../types'
 import type { DashboardOverview } from '@/features/ai/types'
 
@@ -17,9 +18,10 @@ export function DashboardView({ data, overview }: { data: DashboardToday; overvi
         <StatCard icon={CheckCircle2} label="Done This Week" value={data.tasks_completed_this_week} />
       </div>
 
-      {/* Overview row - weekly goals + skill progress */}
+      {/* Overview row - streak + weekly goals + skill progress */}
       {overview && (
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-3">
+          {overview.streak && <StreakCard streak={overview.streak} />}
           <Card>
             <CardContent className="flex items-center gap-4 pt-6">
               <div className="rounded-md bg-primary/10 p-2 text-primary">

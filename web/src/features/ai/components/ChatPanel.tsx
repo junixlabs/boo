@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { BooAvatar } from './BooAvatar'
 import { ChatMessages } from './ChatMessages'
 import { useSendMessage, useClearChat } from '../hooks/useChat'
+import { useNudges } from '../hooks/useNudges'
 
 export function ChatPanel() {
   const {
@@ -15,6 +16,7 @@ export function ChatPanel() {
     clearMessages,
   } = useSendMessage()
   const clearChat = useClearChat()
+  const { data: nudges } = useNudges()
 
   function handleClear() {
     if (conversationId) {
@@ -52,6 +54,7 @@ export function ChatPanel() {
           isStreaming={isStreaming}
           streamingContent={streamingContent}
           onSend={sendMessage}
+          nudges={nudges}
         />
       </CardContent>
     </Card>
