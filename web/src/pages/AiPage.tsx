@@ -19,12 +19,29 @@ export default function AiPage() {
     <div className="space-y-6">
       <PageHeader title="Boo AI" description="Chat with Boo or use AI tools" />
 
+      {/* Mobile: horizontal quick actions */}
+      <div className="flex gap-2 overflow-x-auto pb-1 md:hidden">
+        {quickActions.map((action) => (
+          <Button
+            key={action.key}
+            size="sm"
+            variant="outline"
+            className="shrink-0"
+            disabled={isStreaming}
+            onClick={() => sendMessage(action.prompt)}
+          >
+            <action.icon className="mr-1.5 h-3.5 w-3.5" />
+            {action.label}
+          </Button>
+        ))}
+      </div>
+
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <ChatPanel />
         </div>
 
-        <div className="space-y-4">
+        <div className="hidden space-y-4 md:block">
           <Card>
             <CardHeader>
               <CardTitle className="text-sm">Quick Actions</CardTitle>

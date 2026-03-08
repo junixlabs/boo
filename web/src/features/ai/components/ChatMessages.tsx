@@ -84,18 +84,18 @@ export function ChatMessages({
       </div>
 
       {/* Input */}
-      <div className="flex items-center gap-2 pt-1">
+      <div className="flex items-center gap-2 pt-2 pb-[env(safe-area-inset-bottom)]">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
           placeholder="Chat with Boo..."
           disabled={isStreaming}
-          className="h-9 flex-1 rounded-lg border bg-background px-3 text-sm outline-none placeholder:text-muted-foreground focus:ring-1 focus:ring-ring disabled:opacity-50"
+          className="h-10 flex-1 rounded-full border bg-background px-4 text-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/30 disabled:opacity-50"
         />
         <Button
           size="icon"
-          className="h-9 w-9 shrink-0"
+          className="h-10 w-10 shrink-0 rounded-full"
           onClick={handleSend}
           disabled={isStreaming || !input.trim()}
         >

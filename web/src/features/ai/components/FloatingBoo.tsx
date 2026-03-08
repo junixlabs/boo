@@ -58,7 +58,7 @@ export function FloatingBoo() {
 
       {/* Drawer */}
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side="right" className="flex w-full flex-col sm:max-w-md">
+        <SheetContent side="right" className="flex !w-full flex-col sm:!max-w-md">
           <SheetHeader>
             <SheetTitle className="flex items-center gap-2">
               <BooAvatar size={24} expression="happy" />

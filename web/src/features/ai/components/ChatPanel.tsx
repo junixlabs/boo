@@ -24,7 +24,7 @@ export function ChatPanel() {
   }
 
   return (
-    <Card className="flex h-[calc(100vh-12rem)] flex-col">
+    <Card className="flex h-[calc(100dvh-10rem)] flex-col md:h-[calc(100dvh-12rem)]">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
         <CardTitle className="flex items-center gap-2 text-base">
           <BooAvatar size={24} expression="happy" />
