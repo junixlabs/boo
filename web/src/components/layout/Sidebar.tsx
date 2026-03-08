@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { BooAvatar } from '@/features/ai/components/BooAvatar'
+import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet'
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
@@ -27,9 +28,9 @@ const navItems = [
   { to: '/ai', icon: Sparkles, label: 'AI Assistant' },
 ]
 
-export function Sidebar() {
+function NavContent() {
   return (
-    <aside className="fixed inset-y-0 left-0 z-30 flex w-56 flex-col border-r bg-card">
+    <>
       <div className="flex h-14 items-center gap-2.5 border-b px-4">
         <BooAvatar size={28} expression="default" />
         <span className="text-lg font-bold text-primary">Boo</span>
@@ -54,6 +55,29 @@ export function Sidebar() {
           </NavLink>
         ))}
       </nav>
+    </>
+  )
+}
+
+/** Desktop sidebar — hidden on mobile */
+export function Sidebar() {
+  return (
+    <aside className="fixed inset-y-0 left-0 z-30 hidden w-56 flex-col border-r bg-card md:flex">
+      <NavContent />
     </aside>
+  )
+}
+
+/** Mobile sidebar drawer */
+export function MobileSidebar({ open, onOpenChange }: { open: boolean; onOpenChange: (v: boolean) => void }) {
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent side="left" className="!w-56 p-0" showCloseButton={false}>
+        <SheetTitle className="sr-only">Navigation</SheetTitle>
+        <div className="flex h-full flex-col" onClick={() => onOpenChange(false)}>
+          <NavContent />
+        </div>
+      </SheetContent>
+    </Sheet>
   )
 }
