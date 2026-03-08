@@ -1,5 +1,4 @@
 import { Pencil, Trash2, ExternalLink } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import type { LearningTask, LearningTaskStatus } from '../types'
@@ -8,12 +7,6 @@ const statusLabels: Record<LearningTaskStatus, string> = {
   todo: 'To Do',
   in_progress: 'In Progress',
   done: 'Done',
-}
-
-const statusVariant: Record<LearningTaskStatus, 'secondary' | 'default' | 'outline'> = {
-  todo: 'secondary',
-  in_progress: 'default',
-  done: 'outline',
 }
 
 interface LearningTaskCardProps {

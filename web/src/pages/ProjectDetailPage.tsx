@@ -6,7 +6,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { PageLoading } from '@/components/common/LoadingSpinner'
-import { EmptyState } from '@/components/common/EmptyState'
 import { ProjectStatusBadge } from '@/features/projects/components/ProjectStatusBadge'
 import { ProjectForm } from '@/features/projects/components/ProjectForm'
 import { TaskList } from '@/features/tasks/components/TaskList'

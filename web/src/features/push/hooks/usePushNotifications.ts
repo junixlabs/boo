@@ -38,7 +38,7 @@ export function usePushNotifications() {
       const reg = await navigator.serviceWorker.register('/sw.js')
       await navigator.serviceWorker.ready
       const { data } = await pushApi.getVapidKey()
-      const applicationServerKey = urlBase64ToUint8Array(data.data.public_key)
+      const applicationServerKey = urlBase64ToUint8Array(data.data.public_key) as BufferSource
       const sub = await reg.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey,

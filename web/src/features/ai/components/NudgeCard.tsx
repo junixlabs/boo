@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { X, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { BooAvatar } from './BooAvatar'
-import type { Nudge, NudgeType } from '../types'
+import type { Nudge } from '../types'
 
 const priorityColor: Record<string, string> = {
   high: 'var(--nudge-high)',
