@@ -72,6 +72,7 @@ interface ChatMessagesProps {
   streamingContent: string
   onSend: (text: string) => void
   compact?: boolean
+  autoFocus?: boolean
   nudges?: Nudge[]
   streak?: StreakData
   onDismissNudge?: (type: string) => void
@@ -84,17 +85,28 @@ export function ChatMessages({
   streamingContent,
   onSend,
   compact,
+  autoFocus,
   nudges,
   streak,
   onDismissNudge,
   onNudgeAction,
 }: ChatMessagesProps) {
   const [input, setInput] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, streamingContent])
+
+  // Auto-focus input when chat opens
+  useEffect(() => {
+    if (autoFocus) {
+      // Small delay to let Sheet animation finish
+      const t = setTimeout(() => inputRef.current?.focus(), 300)
+      return () => clearTimeout(t)
+    }
+  }, [autoFocus])
 
   function handleSend() {
     const text = input.trim()
@@ -207,6 +219,7 @@ export function ChatMessages({
       {/* Input */}
       <div className="flex items-center gap-2 pb-[env(safe-area-inset-bottom)]">
         <input
+          ref={inputRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}

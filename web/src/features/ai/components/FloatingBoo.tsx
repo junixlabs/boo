@@ -1,13 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { Trash2, Loader2 } from 'lucide-react'
+import { ArrowLeft, Trash2, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
   Sheet,
   SheetContent,
-  SheetHeader,
-  SheetTitle,
   SheetDescription,
+  SheetTitle,
 } from '@/components/ui/sheet'
 import { BooAvatar } from './BooAvatar'
 import { nudgeAction } from './NudgeCard'
@@ -154,42 +153,53 @@ export function FloatingBoo() {
         )}
       </button>
 
-      {/* Drawer — unified chat + inline nudges */}
+      {/* Chat — full-screen on mobile, side sheet on desktop */}
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side="right" className="flex !w-full flex-col sm:!max-w-md">
-          <SheetHeader>
-            <div className="flex items-center justify-between pr-6">
-              <SheetTitle className="flex items-center gap-2">
-                <BooAvatar size={24} expression="happy" />
-                Boo
-              </SheetTitle>
-              {messages.length > 0 && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8"
-                  onClick={handleClear}
-                  disabled={clearChat.isPending}
-                  title="Clear chat"
-                >
-                  {clearChat.isPending ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
-                    <Trash2 className="h-4 w-4" />
-                  )}
-                </Button>
-              )}
-            </div>
+        <SheetContent
+          side="right"
+          showCloseButton={false}
+          className="flex !w-full flex-col gap-0 p-0 sm:!max-w-md"
+        >
+          {/* Compact header */}
+          <div className="flex h-12 shrink-0 items-center gap-2 border-b px-2 sm:px-3">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8"
+              onClick={() => setOpen(false)}
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
+            <BooAvatar size={22} expression="happy" />
+            <SheetTitle className="flex-1 text-sm font-medium">Boo</SheetTitle>
             <SheetDescription className="sr-only">Boo assistant panel</SheetDescription>
-          </SheetHeader>
+            {messages.length > 0 && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8"
+                onClick={handleClear}
+                disabled={clearChat.isPending}
+                title="Clear chat"
+              >
+                {clearChat.isPending ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Trash2 className="h-4 w-4" />
+                )}
+              </Button>
+            )}
+          </div>
 
-          <div className="flex flex-1 flex-col overflow-hidden px-4 pb-4">
+          {/* Chat content — fills remaining space */}
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden px-3 pb-2 sm:px-4 sm:pb-4">
             <ChatMessages
               messages={messages}
               isStreaming={isStreaming}
               streamingContent={streamingContent}
               onSend={sendMessage}
               compact
+              autoFocus={open}
               nudges={nudges}
               streak={streak}
               onDismissNudge={(type) => dismissNudge.mutate(type)}
