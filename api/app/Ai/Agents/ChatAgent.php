@@ -25,6 +25,7 @@ use App\Ai\Tools\ListTasksTool;
 use App\Ai\Tools\SetDailyFocusTool;
 use App\Ai\Tools\SetLifeDirectionTool;
 use App\Ai\Tools\UpdateTaskStatusTool;
+use App\Ai\Tools\UpdateTaskTool;
 use Laravel\Ai\Attributes\Model;
 use Laravel\Ai\Attributes\Provider;
 use Laravel\Ai\Concerns\RemembersConversations;
@@ -59,6 +60,7 @@ class ChatAgent implements Agent, Conversational, HasTools
             new CreateProjectTool($user),
             new CreateTaskTool($user),
             new UpdateTaskStatusTool($user),
+            new UpdateTaskTool($user),
             new SetDailyFocusTool($user),
             new CreateGoalTool($user),
             new CreateWeeklyPlanTool($user),
@@ -115,7 +117,7 @@ BOO FEATURES (you know the entire app):
 YOUR TOOLS (things you can do directly):
 - List/query: tasks, projects, goals, ideas, daily focus, focus areas, skill categories, skills
 - Create: projects, tasks, ideas, goals, milestones, weekly plans, focus areas, skill categories, skills, learning tasks, reflections, project notes
-- Update: task status
+- Update: task fields (title, priority, due date, description, project), task status
 - Set: daily focus, life direction
 - For editing/deleting existing items or features without tools (e.g. updating projects, deleting ideas), guide the user to do it in the app UI.
 
